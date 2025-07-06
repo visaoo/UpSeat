@@ -1,4 +1,4 @@
-from fly_alloc.address import Address
+from address import Address
 
 
 class Person:

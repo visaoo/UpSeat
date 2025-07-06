@@ -1,31 +1,76 @@
+from math import floor
+from address import Address
+from passager import Passenger
+from seat import Seat
+
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from address import Address
+    from passager import Passenger
+
+### IDEIA 
+
+# Quero que dentro da aeronave de para ver assentos ocupados e livres
+# depois de verificar se o assento esta livre, vincular o assento a um passageiro
+
 class Airplane:
-    def __init__(self, id, model, capacity):
+    def __init__(self, id, model, capacity, crewing: bool = False):
         self._id = id
         self._model = model
         self._capacity = capacity
         self._seats = self._generate_seats()
-    
+        self._crewing = crewing
+
 
     def _generate_seats(self):
         """
-        Generates a list of seats in the format 'A1', 'A2', ..., 'B1', 'B2', ..., etc.
+        Generates a list of seat IDs in the format '1A', '1B', '1C', etc.
         """
-        seats = []
+        # [{seat_id: Seat, seat_class: 'Economica', is_occupied: False}, ...]
+        seats = {}
         columns = ['A', 'B', 'C', 'D', 'E', 'F']
-        for row in range(1, self._capacity + 1):
+        rows = self._capacity // len(columns)  # Calculate number of rows
+        
+        for row in range(1, rows + 1):
             for column in columns:
-                seats.append(f"{column}{row}{columns[columns.index(column)-1 % len(columns)]}")
+                seat_id = f"{row}{column}"
+                seats[seat_id] = Seat(seat_id, "Economica", False)
         return seats
     
-    def _view_seats(self):
-        """
-        Returns a list of all seats in the airplane.
-        """
+    @property
+    def id(self):
+        return self._id
+    
+    @property
+    def model(self):
+        return self._model
+    
+    @property
+    def capacity(self):
+        return self._capacity
+    
+    @property
+    def seats(self):
         return self._seats
+    
+    def get_seat_count(self):
+        """Returns the total number of seats available"""
+        return len(self._seats)
+    
+    def is_seat_available(self, seat_id: str) -> bool:
+        """Checks if a specific seat is available"""
+        if seat_id not in self._seats:
+            raise ValueError(f"Seat {seat_id} does not exist.")
+        return not self._seats[seat_id].is_occupied
 
+    def allocate_seat(self,  seat_id: str) -> bool:
+        """Aloca um assento para um passageiro"""
+        if seat_id not in self._seats:
+            raise ValueError(f"Seat {seat_id} does not exist.")
+        if self._seats[seat_id].is_occupied:
+            raise ValueError(f"Seat {seat_id} is already occupied.")
+        self._seats[seat_id].occupy()
+        return True
 
-airplane = Airplane(id=1, model="Boeing 737", capacity=30)
-
-print("Airplane Model:", airplane._model)
-print("Airplane Capacity:", airplane._capacity)
-print("Available Seats:", airplane._view_seats())
+    def __str__(self):
+        return f"Aeronave {self._model} (ID: {self._id}) - Capacidade: {self.get_seat_count()} assentos"

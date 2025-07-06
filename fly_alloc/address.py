@@ -1,4 +1,20 @@
-class Address:
+from abc import ABC, abstractmethod
+
+
+class AddressInterface(ABC):
+    """Interface para endereços"""
+    
+    @abstractmethod
+    def get_full_address(self) -> str:
+        """Retorna endereço completo formatado"""
+        pass
+    
+    @abstractmethod
+    def validate_address(self) -> bool:
+        """Valida o endereço"""
+        pass
+
+class Address(AddressInterface):
     def __init__(self, street, number, city, state, zip_code):
         self._street = street
         self._number = number
@@ -45,6 +61,16 @@ class Address:
     @zip_code.setter
     def zip_code(self, value):
         self._zip_code = value
+        
+    def get_full_address(self):
+        """Implementação padrão do endereço completo"""
+        return f"{self._street}, {self._number} - {self._city}/{self._state} - {self._zip_code}"
+    
+    def validate_address(self) -> bool:
+        """Validação básica do endereço"""
+        required_fields = [self._street, self._number, self._city, self._state, self._zip_code]
+        return all(field.strip() for field in required_fields)
+            
         
     def to_dict(self):
         return {

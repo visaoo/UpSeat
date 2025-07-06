@@ -1,0 +1,14 @@
+{
+  "[files]": {
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/__pycache__": true,
+  }
+}
