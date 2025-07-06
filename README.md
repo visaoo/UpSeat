@@ -151,13 +151,13 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 📞 Contato
 
-**Desenvolvedor**: Seu Nome  
-**Email**: seu.email@exemplo.com  
+**Desenvolvedor**: visaoo
+**Email**: fillypeoliveira1@gmail.com 
 **GitHub**: [@visaoo](https://github.com/visaoo)
 
 ## 🎯 Roadmap
 
-- [ ] **v1.0**: Sistema básico de alocação
+- [x] **v1.0**: Sistema básico de alocação
 - [ ] **v1.1**: Interface web
 - [ ] **v1.2**: API REST completa
 - [ ] **v2.0**: Sistema de reservas avançado
