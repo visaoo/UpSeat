@@ -26,6 +26,7 @@ class Passenger(Person):
         """Remove a atribuição de assento"""
         self._seat_number = ''
     
+    @property
     def has_seat(self) -> bool:
         """Verifica se o passageiro tem assento atribuído"""
         return bool(self._seat_number)
@@ -33,14 +34,14 @@ class Passenger(Person):
     # def get_role(self) -> str:
     #     """Retorna o papel/tipo da pessoa"""
     #     return "Passageiro"
-        
+    
     def to_dict(self):
         """Converte para dicionário incluindo informações de passageiro"""
         data = super().to_dict()
         data.update({
             "id": self._id,
             "seat_number": self._seat_number,
-            "has_seat": self.has_seat()
+            "has_seat": self.has_seat
         })
         return data
 

@@ -89,7 +89,7 @@ passenger = Passenger(1, "João Silva", "123.456.789-00", address, "01/01/1990")
 
 # Alocar assento
 passenger.assign_seat("1A")
-seat.occupy()
+seat.occupy_seat()
 
 print(f"Passageiro: {passenger}")
 print(f"Assento: {seat}")

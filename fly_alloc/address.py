@@ -15,7 +15,7 @@ class AddressInterface(ABC):
         pass
 
 class Address(AddressInterface):
-    def __init__(self, street, number, city, state, zip_code):
+    def __init__(self, street: str, number: int, city: str, state: str, zip_code: str):
         self._street = street
         self._number = number
         self._city = city

@@ -45,8 +45,9 @@ class Person:
         return {
             "name": self._name,
             "cpf": self._cpf,
-            "address": self._address.to_dict() if isinstance(self._address, Address) else None
+            "address": self._address.to_dict() if isinstance(self._address, Address) else None,
+            "birth_date": self._birth_date
         }
 
     def __str__(self):
-        return f"Name: {self._name}, CPF: {self._cpf}, Address: {self._address}"
+        return f"Name: {self._name}, CPF: {self._cpf}, Address: {self._address}, Birth Date: {self._birth_date}"

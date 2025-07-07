@@ -1,12 +1,9 @@
-from math import floor
-from address import Address
-from passager import Passenger
 from seat import Seat
+from seat import seatClass
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from address import Address
-    from passager import Passenger
+    from seat import seatClass
 
 ### IDEIA 
 
@@ -14,7 +11,7 @@ if TYPE_CHECKING:
 # depois de verificar se o assento esta livre, vincular o assento a um passageiro
 
 class Airplane:
-    def __init__(self, id, model, capacity, crewing: bool = False):
+    def __init__(self, id: int, model: str, capacity: int, crewing: bool = False):
         self._id = id
         self._model = model
         self._capacity = capacity
@@ -24,17 +21,19 @@ class Airplane:
 
     def _generate_seats(self):
         """
-        Generates a list of seat IDs in the format '1A', '1B', '1C', etc.
+        Gera os assentos da aeronave com base na capacidade definida.
+        Cada assento é identificado por um ID no formato "1A", "1B",
+        "1C", etc., e é atribuído à classe econômica por padrão.
         """
-        # [{seat_id: Seat, seat_class: 'Economica', is_occupied: False}, ...]
         seats = {}
         columns = ['A', 'B', 'C', 'D', 'E', 'F']
-        rows = self._capacity // len(columns)  # Calculate number of rows
         
-        for row in range(1, rows + 1):
-            for column in columns:
-                seat_id = f"{row}{column}"
-                seats[seat_id] = Seat(seat_id, "Economica", False)
+        for i in range(self._capacity):
+            row = (i // len(columns)) + 1  # Calcula a fileira
+            col = columns[i % len(columns)]  # Calcula a coluna
+            seat_id = f"{row}{col}"
+            seats[seat_id] = Seat(seat_id, seatClass.ECONOMICA, False)
+
         return seats
     
     @property
@@ -69,7 +68,7 @@ class Airplane:
             raise ValueError(f"Seat {seat_id} does not exist.")
         if self._seats[seat_id].is_occupied:
             raise ValueError(f"Seat {seat_id} is already occupied.")
-        self._seats[seat_id].occupy()
+        self._seats[seat_id].occupy_seat()
         return True
 
     def __str__(self):
