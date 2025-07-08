@@ -16,7 +16,7 @@ class Airplane:
         self._model = model
         self._capacity = capacity
         self._seats = self._generate_seats()
-        self._crewing = crewing
+        self._crewing = crewing # sera nossa tripulação
 
 
     def _generate_seats(self):
@@ -35,6 +35,20 @@ class Airplane:
             seats[seat_id] = Seat(seat_id, seatClass.ECONOMICA, False)
 
         return seats
+    
+    def crewing(self, crewing: bool):
+        """
+        Define se a aeronave possui tripulação.
+        """
+        if not isinstance(crewing, bool):
+            raise TypeError("Crewing deve ser um valor booleano.")
+        self._crewing = crewing
+        
+    def is_crewing(self) -> bool:
+        """
+        Verifica se a aeronave possui tripulação.
+        """
+        return self._crewing
     
     @property
     def id(self):

@@ -1,4 +1,5 @@
 from address import Address
+from datetime import datetime
 
 
 class Person:
@@ -40,6 +41,23 @@ class Person:
     def birth_date(self, value):
         self._birth_date = value
 
+    def calculate_age(self) -> int:
+        """Calcula a idade a partir da data de nascimento"""
+        if not self._birth_date:
+            return 0
+        
+        # Converte string para datetime
+        birth = datetime.strptime(self._birth_date, "%d-%m-%Y")
+        today = datetime.now()
+        
+        # Calcula a idade
+        age = today.year - birth.year
+        
+        # Verifica se já fez aniversário este ano
+        if today.month < birth.month or (today.month == birth.month and today.day < birth.day):
+            age -= 1
+            
+        return age
 
     def to_dict(self):
         return {

@@ -15,7 +15,5 @@ def test_airplane_creation():
 
 x = test_airplane_creation()
 
-print(len(x._view_seats()))
-print(x._capacity)
-print(x._model)
-print(x._id)
+print(x.get_seat_count())
+print(x)

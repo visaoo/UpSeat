@@ -84,13 +84,38 @@ class Flight(FlightInterface):
         """Retorna o número de assentos disponíveis no voo"""
         return self._airplane.get_seat_count()
     
+    @property
+    def flight_number(self) -> str:
+        """Retorna o número do voo"""
+        return self._flight_number
+    
+    @property
+    def passengers(self) -> list:
+        """Retorna a lista de passageiros do voo"""
+        return self._passengers.copy()  # Retorna uma cópia para não permitir modificação direta
+    
+    @property
+    def airplane(self):
+        """Retorna a aeronave do voo"""
+        return self._airplane # WARN!! Retorna a instancia.
+    
+    @property
+    def origin(self):
+        """Retorna o endereço de origem"""
+        return self._origin
+    
+    @property
+    def destination(self):
+        """Retorna o endereço de destino"""
+        return self._destination
+    
+    def get_passengers_count(self) -> int:
+        """Retorna o número de passageiros no voo"""
+        return len(self._passengers)
+
     def get_flight_info(self) -> str:
         """Retorna informações do voo"""
         return f"Informações do voo: {self._flight_number}, Origem: {self._origin}, Destino: {self._destination}, Aeronave: {self._airplane.model}, Capacidade: {self._airplane.capacity}"
 
     def __str__(self) -> str:
         return f"Voo {self._flight_number} de {self._origin} para {self._destination}, Aeronave: {self._airplane.model}"
-    
-    
-    
-print((30//2) + 1)
